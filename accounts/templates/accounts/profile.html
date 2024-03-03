@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
+
     <h3 class="text-center">
         {{ user.username }}
     </h3>
+    {% for post in posts %}
+    <p>
+            <a href="{{ post.get_absolute_url }}">
+                {{ post.body|truncatewords:8 }}
+            </a>
+    </p>
+    {% endfor %}
+    {% if user.id == request.user.id%}
+        <a href="{% url 'home:post_create' %}" class="btn btn-primary">Create</a>
+    {% endif %}
 {% endblock %}

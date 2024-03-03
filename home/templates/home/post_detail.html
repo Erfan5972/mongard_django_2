@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>
+        <a href="{%url "accounts:profile" post.user.id %}" class="card-body">{{ post.user }}</a> - {{ post.created_at | date:"M d, Y"  }}
+    </p>
+        <p class="card-body">{{ post.body  }}</p>
+    {% if post.user.id == request.user.id %}
+        <a href="{% url 'home:post_delete' post.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'home:post_update' post.id %}" class="btn btn-info">Update</a>
+    {% endif %}
+{% endblock %}
