@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
     'post.apps.PostConfig',
+    'comment.apps.CommentConfig',
 ]
 
 MIDDLEWARE = [
@@ -132,9 +133,12 @@ AUTHENTICATION_BACKENDS = [
     'accounts.authentication.EmailBackend',
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+
+# وصل شدن به اکانت گوگل
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' #برنامه ای که email ارسال میکند
+EMAIL_HOST = 'smtp.gmail.com' #برای خود گوگل است
 EMAIL_HOST_USER = 'seyedmohamaderfankazemian@gmail.com'
-EMAIL_HOST_PASSWORD = '4450119436_erfan'
+EMAIL_HOST_PASSWORD = '4450119436_erfan'#یا باید رمزی که خود گوگل به ما میدهد باید استفاده کنیم
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'mongard_django_2'

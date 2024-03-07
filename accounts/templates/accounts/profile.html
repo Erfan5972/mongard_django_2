@@ -14,4 +14,12 @@
     {% if user.id == request.user.id%}
         <a href="{% url 'home:post_create' %}" class="btn btn-primary">Create</a>
     {% endif %}
+
+    {% if user.id != request.user.id and  is_following == True %}
+        <a class="btn btn-primary" href="{% url 'accounts:unfollow' user.id  %}">unfollow</a>
+
+    {% elif user.id != request.user.id and is_following == False%}
+        <a class="btn btn-primary" href="{% url 'accounts:follow' user.id  %}">follow</a>
+    {% endif %}
+
 {% endblock %}
