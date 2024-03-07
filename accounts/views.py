@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .forms import UserRegistrationForm, UserLoginForm
+from .forms import UserRegistrationForm, UserLoginForm, UserEditProfileForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -147,3 +147,22 @@ class UserUnFollowView(LoginRequiredMixin, View):
         else:
             messages.error(request, 'you cant follow yours', 'error')
             return redirect('accounts:profile', user_id)
+
+
+class UserEditProfileView(LoginRequiredMixin, View):
+    form_class = UserEditProfileForm
+
+    def get(self, request):
+        profile = request.user.profile
+        form = self.form_class(instance=profile, initial={'email': request.user.email})
+        return render(request, 'accounts/user_edit_profile.html', {'form': form})
+
+    def post(self, request):
+        form = self.form_class(data=request.POST, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            request.user.email = form.cleaned_data['email']
+            request.user.save()
+            messages.success(request, 'your information changed successfully', 'success')
+            return redirect('accounts:profile', request.user.id)
+        return redirect('accounts:profile', request.user.id)

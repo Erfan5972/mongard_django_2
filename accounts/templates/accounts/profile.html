@@ -13,6 +13,7 @@
     {% endfor %}
     {% if user.id == request.user.id%}
         <a href="{% url 'home:post_create' %}" class="btn btn-primary">Create</a>
+        <a href="{% url 'accounts:edit-profile' %}" class="btn btn-info">Edit Profile</a>
     {% endif %}
 
     {% if user.id != request.user.id and  is_following == True %}

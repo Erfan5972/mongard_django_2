@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-    Home Page ...
+
+    <form method="get">
+        {{ form.as_p }}
+        <input type="submit" value="search">
+    </form>
+    <br><br>
 
     <div class="card">
         {% for post in posts %}
